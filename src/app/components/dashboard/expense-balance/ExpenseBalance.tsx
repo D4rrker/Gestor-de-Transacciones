@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { months } from "@/app/scripts/scriptMonthExpense";
 import { useEffect, useState } from "react";
+import { IMainData } from "@/app/types/propsMainDataContext";
 
 export default function ExpenseBalance() {
   const [data, setData] = useState<number>(0);
@@ -27,7 +28,12 @@ export default function ExpenseBalance() {
       const dataStorage = localStorage.getItem("trs24");
 
       if (dataStorage) {
-        setData(JSON.parse(dataStorage).length);
+        const checkDataExpense = JSON.parse(dataStorage).some(
+          (transaction: IMainData) => transaction.isExpense === true
+        );
+        console.log(checkDataExpense);
+
+        setData(checkDataExpense);
       }
     }
   }, []);
