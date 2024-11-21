@@ -31,13 +31,10 @@ export const volumeTransactions = (data: IMainData[]) => {
 
   // Filtrar solo los items que se encuentran en el mes actual
   const filterByWeek = (week: number, weekDays: number) => {
-    console.log(week, weekDays);
-
     const filterData = data.filter((transaction) => {
       const transactionDay = new Date(transaction.date).getDate(); // Obtenemos el día del mes
       return transactionDay <= week && transactionDay >= week - weekDays;
     }).length;
-    console.log(filterData);
 
     return filterData;
   };
