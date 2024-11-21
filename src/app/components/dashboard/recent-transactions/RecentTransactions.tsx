@@ -20,7 +20,10 @@ export default function RecentTransactions() {
       const dataStorage = localStorage.getItem("trs24");
 
       if (dataStorage) {
-        setData(JSON.parse(dataStorage).length);
+        const checkDataExpense = JSON.parse(dataStorage).some(
+          (transaction: IMainData) => transaction.isExpense === true
+        );
+        setData(checkDataExpense);
       }
     }
   }, [data]);

@@ -4,6 +4,7 @@ import { Pie, ResponsiveContainer, PieChart, Cell, Tooltip } from "recharts";
 import { categoriesAllocation } from "@/app/scripts/scriptCategoriesAllocation";
 import { useMainDataContext } from "@/app/custom-hooks/MainDataContext";
 import { useEffect, useState } from "react";
+import { IMainData } from "@/app/types/propsMainDataContext";
 
 export default function CategoryAllocation() {
   const [data, setData] = useState<number>(0);
@@ -15,7 +16,10 @@ export default function CategoryAllocation() {
       const dataStorage = localStorage.getItem("trs24");
 
       if (dataStorage) {
-        setData(JSON.parse(dataStorage).length);
+        const checkDataExpense = JSON.parse(dataStorage).some(
+          (transaction: IMainData) => transaction.isExpense === true
+        );
+        setData(checkDataExpense);
       }
     }
   }, []);

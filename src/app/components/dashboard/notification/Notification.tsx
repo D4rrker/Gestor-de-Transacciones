@@ -4,6 +4,7 @@ import { Info } from "lucide-react";
 import { categoriesAllocation } from "@/app/scripts/scriptCategoriesAllocation";
 import { useMainDataContext } from "@/app/custom-hooks/MainDataContext";
 import { useEffect, useState } from "react";
+import { IMainData } from "@/app/types/propsMainDataContext";
 
 export default function Notification() {
   const [data, setData] = useState<number>(0);
@@ -18,7 +19,10 @@ export default function Notification() {
       const dataStorage = localStorage.getItem("trs24");
 
       if (dataStorage) {
-        setData(JSON.parse(dataStorage).length);
+        const checkDataExpense = JSON.parse(dataStorage).some(
+          (transaction: IMainData) => transaction.isExpense === true
+        );
+        setData(checkDataExpense);
       }
     }
   }, [data]);
