@@ -31,8 +31,6 @@ export default function ExpenseBalance() {
         const checkDataExpense = JSON.parse(dataStorage).some(
           (transaction: IMainData) => transaction.isExpense === true
         );
-        console.log(checkDataExpense);
-
         setData(checkDataExpense);
       }
     }
