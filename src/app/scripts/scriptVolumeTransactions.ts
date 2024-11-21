@@ -25,23 +25,26 @@ const allMonths = [
 export const volumeTransactions = (data: IMainData[]) => {
   const currentMounth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
-  const number = new Date(currentYear, currentMounth, 0).getDate();
+  const number = new Date(currentYear, currentMounth, 0).getDate(); // Obtenemos el número de días del mes actual
 
   const arr: newArray[] = [];
 
   // Filtrar solo los items que se encuentran en el mes actual
   const filterByWeek = (week: number, weekDays: number) => {
+    console.log(week, weekDays);
+
     const filterData = data.filter((transaction) => {
-      const transactionDay = new Date(transaction.date).getDate();
+      const transactionDay = new Date(transaction.date).getDate(); // Obtenemos el día del mes
       return transactionDay <= week && transactionDay >= week - weekDays;
     }).length;
+    console.log(filterData);
 
     return filterData;
   };
 
   // Agrupamos las semanas en 7 días y si no se puede agrupar en 7 días, se agrupa con el restante
   for (let i = 1; i < Math.ceil(number / 7); i++) {
-    const calculate = number - 7 * i;
+    const calculate = number - 7 * i; // Calculamos el número de días restantes
     if (calculate > 7) {
       arr.push({
         num: `${number - calculate - 6} al ${number - calculate} de ${
@@ -56,7 +59,7 @@ export const volumeTransactions = (data: IMainData[]) => {
           allMonths[currentMounth - 1]
         }`,
         semana: `Semana ${i}`,
-        transacciones: filterByWeek(number - calculate - 6, calculate),
+        transacciones: filterByWeek(number - calculate, 6),
       });
     }
   }
