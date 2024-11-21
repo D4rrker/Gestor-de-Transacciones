@@ -10,10 +10,14 @@ export default function LiRecentTransaction({
     maximumFractionDigits: 2,
   });
 
+  const dateTransform = obj_transaction.date.split("-");
+  const [year, month, day] = dateTransform;
+  const newDate = `${day}-${month}-${year}` || "";
+
   return (
     <li className="w-full flex flex-col lg:flex-row items-center lg:items-start justify-between py-1 rounded-md">
       <div>
-        <span className="text-lg font-normal">{obj_transaction.date}</span> -{" "}
+        <span className="text-lg font-normal">{newDate}</span> -{" "}
         <span className="text-lg font-semibold">
           {obj_transaction.categories[0].charAt(0).toLocaleUpperCase() +
             obj_transaction.categories[0].slice(1)}
